@@ -3,14 +3,15 @@ import 'package:quiz_mania/methods/extentions.dart';
 import 'package:quiz_mania/models/Categorymodel.dart';
 
 class Categorycont extends StatelessWidget {
-  const Categorycont({super.key});
+  const Categorycont({super.key, required this.index});
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       height: 225,
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: EdgeInsets.only(left: 30, top: 20),
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
@@ -24,14 +25,18 @@ class Categorycont extends StatelessWidget {
             width: 60,
             height: 60,
             decoration: BoxDecoration(
-              color: quizCategories[0].iconColor,
+              color: quizCategories[index].iconColor,
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Icon(quizCategories[0].icon, color: Colors.white, size: 40),
+            child: Icon(
+              quizCategories[index].icon,
+              color: Colors.white,
+              size: 40,
+            ),
           ),
           20.gap,
           Text(
-            quizCategories[0].name!,
+            quizCategories[index].name!,
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w900,
@@ -39,7 +44,7 @@ class Categorycont extends StatelessWidget {
             ),
           ),
           Text(
-            quizCategories[0].description!,
+            quizCategories[index].description!,
             style: TextStyle(fontSize: 14, color: Colors.grey),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,

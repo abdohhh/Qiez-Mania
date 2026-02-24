@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_mania/methods/extentions.dart';
+import 'package:quiz_mania/models/Categorymodel.dart';
+import 'package:quiz_mania/routes/Approutes.dart';
 import 'package:quiz_mania/widgets/Categorycont.dart';
 
 class Category extends StatefulWidget {
@@ -46,7 +48,24 @@ class _CategoryState extends State<Category> {
                 ),
               ),
               20.gap,
-              
+              Expanded(
+                child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: quizCategories.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          Approutes.Question,
+                          arguments: index,
+                        );
+                      },
+                      child: Categorycont(index: index),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),

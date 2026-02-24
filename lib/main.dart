@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_mania/Screens/Category.dart';
+import 'package:quiz_mania/Screens/Question.dart';
 import 'package:quiz_mania/Screens/home.dart';
 import 'package:quiz_mania/routes/Approutes.dart';
 
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       initialRoute: Approutes.homepage,
       routes: {
         Approutes.homepage: (context) => Home(),
-        Approutes.Category: (context) => Category()
+        Approutes.Category: (context) => Category(),
+        Approutes.Question: (context) => Question(),
       },
     );
   }
