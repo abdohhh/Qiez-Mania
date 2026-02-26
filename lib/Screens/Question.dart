@@ -17,10 +17,12 @@ class _QuestionState extends State<Question> {
   String selectedOption = "";
   String correctAnswer = "";
   int result = 0;
+  bool? isTrue;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -36,13 +38,14 @@ class _QuestionState extends State<Question> {
             margin: EdgeInsets.only(top: 20),
             padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
             width: 300,
-            height: 600,
+            height: isTrue == null ? 600 : 700,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Column(
               children: [
+                /// question number and category
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -64,6 +67,7 @@ class _QuestionState extends State<Question> {
                         ),
                       ),
                     ),
+                    // question number
                     Padding(
                       padding: EdgeInsets.only(right: 10),
                       child: Text(
@@ -75,6 +79,7 @@ class _QuestionState extends State<Question> {
                 ),
 
                 20.gap,
+                // progress bar
                 LinearProgressIndicator(
                   minHeight: 7,
                   value: (currentQuestionIndex + 1) / 10,
@@ -83,6 +88,7 @@ class _QuestionState extends State<Question> {
                   color: Colors.purple,
                 ),
                 30.gap,
+                // question
                 Text(
                   quizCategories[index]
                       .questions[currentQuestionIndex]
@@ -90,6 +96,7 @@ class _QuestionState extends State<Question> {
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 20.gap,
+                // options
                 for (
                   int i = 0;
                   i <
@@ -100,6 +107,7 @@ class _QuestionState extends State<Question> {
                   i++
                 )
                   Flexible(
+                    // option
                     child: GestureDetector(
                       onTap: () async {
                         setState(() {
@@ -116,9 +124,17 @@ class _QuestionState extends State<Question> {
                                   .correctAnswer) {
                             result++;
                           }
+                          isTrue =
+                              selectedOption ==
+                                  quizCategories[index]
+                                      .questions[currentQuestionIndex]
+                                      .correctAnswer
+                              ? true
+                              : false;
                         });
                         await Future.delayed(const Duration(seconds: 1));
                         setState(() {
+                          isTrue = null;
                           if (currentQuestionIndex <
                               quizCategories[index].questions.length - 1) {
                             currentQuestionIndex++;
@@ -205,11 +221,12 @@ class _QuestionState extends State<Question> {
                                               .options[i] ==
                                           selectedOption
                                     ? Colors.red
-                                    : Colors.grey
-                              : Colors.grey,
+                                    : Colors.grey[300]
+                              : Colors.grey[300],
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Center(
+                          // option text
                           child: Row(
                             children: [
                               CircleAvatar(child: Text(latters[i])),
@@ -230,6 +247,24 @@ class _QuestionState extends State<Question> {
                       ),
                     ),
                   ),
+                20.gap,
+                Container(
+                  height: isTrue == null ? 0 : 80,
+                  decoration: BoxDecoration(
+                    color: isTrue == true ? Colors.green : Colors.red,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(
+                    child: Text(
+                      isTrue == true ? "Correct" : "Wrong",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

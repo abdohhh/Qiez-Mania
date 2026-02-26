@@ -36,7 +36,7 @@ class Categorycont extends StatelessWidget {
           ),
           20.gap,
           Text(
-            quizCategories[index].name!,
+            quizCategories[index].name,
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w900,
@@ -44,7 +44,7 @@ class Categorycont extends StatelessWidget {
             ),
           ),
           Text(
-            quizCategories[index].description!,
+            quizCategories[index].description,
             style: TextStyle(fontSize: 14, color: Colors.grey),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
